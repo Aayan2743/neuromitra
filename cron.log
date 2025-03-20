@@ -1,0 +1,6 @@
+
+  2024-09-28 08:40:10 Running ['artisan' send:reminders] .......................................................................... 587ms DONE
+  ⇂ '/opt/cpanel/ea-php82/root/usr/bin/php-cgi' 'artisan' send:reminders > '/dev/null' 2>&1  
+
+Content-type: text/html; charset=UTF-8
+
