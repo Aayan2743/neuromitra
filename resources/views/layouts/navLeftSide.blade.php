@@ -1962,10 +1962,7 @@
                             <i class="feather-bell"></i>
                             <span>Notifications</span>
                         </a> --}}
-                        {{-- <a href="javascript:void(0);" class="dropdown-item">
-                            <i class="feather-settings"></i>
-                            <span>Account Settings</span>
-                        </a> --}}
+                       
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('user.logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -109,7 +109,7 @@ Route::resource('/create_assessment', childernAssement::class)
     ->middleware('checkadmin');
 Route::get('view-kids-results',[childernAssement::class,'viewChildAssesement'])->middleware('checkadmin')->name('kids.result');
 Route::get('view-kids-assement-result/{id}',[childernAssement::class,'display'])->middleware('checkadmin')->name('kids.result.id');
-Route::get('edit-kids-assement-questions/{id}',[childernAssement::class,'updatequestions'])->middleware('checkadmin')->name('kids.question.update');
+Route::ANY('edit-assement-questions/{id}',[childernAssement::class,'updatequestions'])->middleware('checkadmin')->name('kids.question.update');
 
 // Adults Assesemnt Module
 Route::resource('create_assesement_for_adults',Adults_assesement_contoller::class)->middleware('checkadmin');

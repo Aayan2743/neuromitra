@@ -123,7 +123,79 @@ class childernAssement extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($id, $request->all()) ;
+    //    dd($id, $request->all()) ;
+      
+
+       
+        try{
+
+            $record = assement_guide_childern::find($id);
+           
+
+            if($record->for_whome==1){
+                // for adultes
+
+                if ($record) {
+                    if ($record->section_name == $request->questionType && $record->Q1 == $request->Questions) {
+                        // return response()->json(['message' => 'No changes detected']);
+
+                        return redirect()->route('create_assesement_for_adults.index')->with('error', 'No changes detected');
+                    }
+
+                    $update = $record->update([
+                        'section_name' => $request->questionType,
+                        'Q1' => $request->Questions,
+                    ]);
+
+                    if ($update) {
+                        return redirect()->route('create_assesement_for_adults.index')->with('success', 'Record updated successfully');
+                    } else {
+                        return redirect()->route('create_assesement_for_adults.index')->with('error', 'No changes were made');
+                    }
+                }
+                return redirect()->route('create_assesement_for_adults.index')->with('error', 'Record not found');
+                // return response()->json(['error' => 'Record not found'], 404);
+
+            }else if($record->for_whome==0){
+                if ($record) {
+                    if ($record->section_name == $request->questionType && $record->Q1 == $request->Questions) {
+                        // return response()->json(['message' => 'No changes detected']);
+
+                        return redirect()->route('create_assessment.index')->with('error', 'No changes detected');
+                    }
+
+                    $update = $record->update([
+                        'section_name' => $request->questionType,
+                        'Q1' => $request->Questions,
+                    ]);
+
+                    if ($update) {
+                        return redirect()->route('create_assessment.index')->with('success', 'Record updated successfully');
+                    } else {
+                        return redirect()->route('create_assessment.index')->with('error', 'No changes were made');
+                    }
+                }
+                return redirect()->route('create_assessment.index')->with('error', 'Record not found');
+                // return response()->json(['error' => 'Record not found'], 404);
+
+
+            }
+
+
+                
+
+
+        }catch(Exception $e){
+            return response()->json([
+                'status'=>false,
+                'message'=>$e->getMessage()
+            ]);
+        }
+
+       
+    
+    
+    
     }
 
     /**

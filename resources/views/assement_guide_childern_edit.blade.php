@@ -11,7 +11,7 @@
                 </div>
                 <ul class="breadcrumb">
                    
-                    <li class="breadcrumb-item">Update Question For Kids Assesment </li>
+                    <li class="breadcrumb-item">Update Question For Assesment </li>
                 </ul>
             </div>
             <div class="page-header-right ms-auto">
@@ -42,7 +42,7 @@
                 <div class="col-xxl-12">
                     <div class="card stretch stretch-full">
                         <div class="card-header">
-                            <h5 class="card-title">Update Question For Kids Assesment</h5>
+                            <h5 class="card-title">Update Question For Assesment</h5>
                             <div class="card-header-action">
                                 <div class="card-header-btn">
 
@@ -68,10 +68,12 @@
                         </div>
                         <div class="card-body custom-card-action p-0">
                             <div class="card-body">
-                               
+                             
+                               @if($listofquestions[0]->for_whome==0)     
+
                                 <form method="POST" action="{{ route('create_assessment.update',$listofquestions[0]->id) }}">
                                     @csrf
-                                    @Method('patch')
+                                    @Method('PATCH')
                                       <input type="hidden" id="sid" name="sname" value="{{$listofquestions[0]->id}}"  /> 
                                     <div class="row mb-3">
                                         <label for="name"
@@ -154,6 +156,94 @@
                                         </div>
                                     </div>
                                 </form>
+                                @else
+                                <form method="POST" action="{{ route('create_assessment.update',$listofquestions[0]->id) }}">
+                                    @csrf
+                                    @Method('PATCH')
+                                      <input type="hidden" id="sid" name="sname" value="{{$listofquestions[0]->id}}"  /> 
+                                    <div class="row mb-3">
+                                        <label for="name"
+                                            class="col-md-4 col-form-label text-md-end">Select Question Section</label>
+
+                                        <div class="col-md-6">
+
+                                        @php
+                                                    // List of static sections
+                                                    $sections = [
+                                                        "Personal Growth and Self-Awareness",
+                                                        "Emotional Well-being and Resilience",
+                                                        "Relationships and Communication",
+                                                        "Cognitive and Intellectual Development",
+                                                        "Life Satisfaction and Purpose"
+                                                    ];
+
+                                                    // Get the selected value from the database (passed from the controller)
+                                                    $selectedSection = old('questionType', $listofquestions[0]->section_name ?? '');
+                                                @endphp
+
+                                                <select class="form-select @error('questionType') is-invalid @enderror" 
+                                                        aria-label="Select Question Section" 
+                                                        id="questionType" 
+                                                        name="questionType">
+                                                    <option selected disabled>Select Question Section</option>
+
+                                                    @foreach ($sections as $section)
+                                                        <option value="{{ $section }}" 
+                                                            {{ $selectedSection == $section ? 'selected' : '' }}>
+                                                            {{ $section }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>                                      
+
+
+
+
+                                            @error('questionType')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="email"
+                                            class="col-md-4 col-form-label text-md-end">Question </label>
+
+                                        <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <textarea class="form-control @error('Questions') is-invalid @enderror" 
+                                                   
+                                                    id="Questions" 
+                                                    name="Questions" 
+                                                    style="height: 100px">{{$listofquestions[0]->Q1  }}</textarea>
+                                            <label for="Questions">Write Your Question Here</label>
+                                        </div>
+
+                                        @error('Questions')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                    </div>
+                                    </div>
+
+                                  
+
+                                    <div class="row mb-0">
+                                        <div class="col-md-6 offset-md-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                Update Question
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>                    
+
+                                @endif
                             </div>
 
                        

@@ -210,7 +210,7 @@
                                                 </style>
 
                                                 <div class="action-buttons">
-                                                    <a href="{{ route('therapists.edit', $therapist->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="{{ route('kids.question.update', $therapist->id) }}" class="btn btn-primary btn-sm">Edit</a>
 
                                                     <form id="delete-form-{{ $therapist->id }}" action="{{ route('create_assessment.destroy', $therapist->id) }}" method="POST">
                                                                     @csrf

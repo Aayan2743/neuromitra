@@ -78,12 +78,12 @@ trait AuthenticatesUsers
     if ($this->attemptLogin($request)) {
 
         // Retrieve the authenticated user
-        $user = auth()->user();
+        $user = auth('web')->user();
 
         // Check if the user_type is 2 (admin) and deny login
         if ($user->user_type == 1) {
             // Log the user out immediately
-            auth()->logout();
+            auth('web')->logout();
 
             // Redirect back with an error message
             return redirect()->back()->withErrors([
@@ -231,7 +231,7 @@ trait AuthenticatesUsers
         auth('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login')->with('success', 'You have been logged out.');
+        return redirect()->route('user.login')->with('success', 'You have been logged out.');
     }
 
     // Check if it's an API user using Sanctum
